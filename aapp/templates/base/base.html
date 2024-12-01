@@ -8,7 +8,14 @@
     <link rel="stylesheet" href={% static "css/style.css" %}>
 </head>
 <body>
-    <h1>Levi Shop</h1>
+    {% include "base/header.html" %}
+    <div class="content-wrapper">
+    {% include "base/left-aside.html" %}
+    <main>
     {% block content %}content{% endblock content %}
+    </main>
+    {% include "base/right-aside.html" %}
+
+    </div>
 </body>
 </html>

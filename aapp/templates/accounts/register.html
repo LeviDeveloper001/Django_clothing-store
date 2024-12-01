@@ -4,9 +4,9 @@
 {% block content %}
 <h2>Регистрация</h2>
 
-<form method="post">
+<form method="post" class='register-form' id='register-form'>
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.as_table }}
     <button type="submit">Зарегистрироваться</button>
 </form>
 
