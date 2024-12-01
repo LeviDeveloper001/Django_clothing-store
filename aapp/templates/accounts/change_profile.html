@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+
+
+{% block content %}
+<form method='post' class='change-profile-form'>
+    {% csrf_token %}
+    <h3>Изменить профиль</h3>
+    {{ form.as_table }}
+    <button type='submit'>Подтвердить изменения</button>
+</form>
+{% endblock content %}
+

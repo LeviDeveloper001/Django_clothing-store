@@ -27,9 +27,17 @@ class CustomUserCreationForm(UserCreationForm):
 
     
 
-
 class AuthForm(AuthenticationForm):
     pass
+
+
+    
+
+
+class ChangeProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ("description", "profile_image")
 
 
 

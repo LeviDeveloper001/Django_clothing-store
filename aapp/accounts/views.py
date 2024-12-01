@@ -16,7 +16,7 @@ from . import models
 User=get_user_model()
 
 def base_view(request):
-    return render(request, 'accounts/index.html')
+    return redirect('accounts:login')
 
 
 class CustomLoginView(GeneralMixin, LoginView):
@@ -49,13 +49,13 @@ class ProfileView(GeneralMixin, TemplateView):
         return profile
 
     def get(self, request:HttpRequest, *args, **kwargs):
+        if not request.user.is_authenticated: return redirect('accounts:login')
         return super().get(request)
         
     
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context[self.context_object_name] = self.get_profile()
-        print(context)
         return context
     
         
@@ -90,4 +90,32 @@ class RegisterView(GeneralMixin, FormView):
             profile.save()
             return redirect('accounts:login')  # Перенаправление на страницу входа после успешной регистрации
         return self.render_to_response({'form':form})
+
+
+
+class ChangeProfileView(GeneralMixin, FormView):
+    template_name='accounts/change_profile.html'
+    form_class=forms.ChangeProfileForm
+    success_url='accounts:profile'
+
+
+    def get_success_url(self) -> str:
+        return self.success_url
+
+    def form_valid(self, form:form_class):
+        # Сохраняем загруженное изображение в базе данных
+        user_image = form.save()  # Сохраняем объект UserImage
+        return super().form_valid(form)
+
+    def post(self, request:HttpRequest, *args, **kwargs):
+        form=self.get_form()
+        files_data=request.FILES
+        print(files_data)
+        if form.is_valid():
+            print('form-valid')
+        else:
+            print('form not valid')
+        
+        return super().post(request, *args, **kwargs)
+
 

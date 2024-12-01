@@ -2,11 +2,16 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 
 
+# class ShoppingCart(models.Model):
+#     pass
+
 class ProfileManager(models.Manager):
     pass
 
 class Profile(models.Model):
     user=models.OneToOneField('User', on_delete=models.CASCADE)
+    description=models.TextField(max_length=1000, null=True, editable=True)
+    profile_image=models.ImageField(upload_to='images/accounts/profile_images',null=True)
     
     manager=ProfileManager()
 

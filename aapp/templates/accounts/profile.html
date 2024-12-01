@@ -2,5 +2,17 @@
 
 {% block content %}
 <h2>Profile</h2>
-
+<div class='profile-wrapper'>
+    <p>Username: <span>{{ profile.user.username }}</span></p>
+    <p>Эл. почта: <span>{{ profile.user.email }}</span></p>
+    <span style='font-size:1.3em'>Описание: </span>
+    <p>
+        <span class='profile-description'>{{ profile.description|default:"Отсутствует" }}</span>
+    </p>
+    <a href={% url "accounts:change-profile" %}>Изменить профиль</a>
+    <br>
+    <a href={% url "accounts:logout" %}>
+        <span>Выйти</span>
+    </a>
+</div>
 {% endblock content %}

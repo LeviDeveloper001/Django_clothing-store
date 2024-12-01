@@ -44,8 +44,8 @@
 
     <div class='login-profile'>
         {% if is_auth %}
-            <a href={% url "accounts:logout" %}>
-                <span>Выйти</span>
+            <a href={% url "accounts:profile" %}>
+                <span>Профиль</span>
             </a>
         {% else %}
             <a href={% url "accounts:login" %}>
