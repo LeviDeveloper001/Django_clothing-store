@@ -4,7 +4,7 @@ from django.forms.forms import BaseForm
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.views import View
-from django.views.generic import DetailView, FormView
+from django.views.generic import DetailView, FormView, TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, get_user_model, logout
 
@@ -36,21 +36,26 @@ class CustomLogoutView(GeneralMixin, LogoutView):
     # next_page='accounts:login'
     
 
-class ProfileView(GeneralMixin, DetailView):
+
+class ProfileView(GeneralMixin, TemplateView):
     template_name='accounts/profile.html'
     model:models.Profile=models.Profile
     context_object_name='profile'
 
-    def get(self, request:HttpRequest, pk:int, *args, **kwargs):
-        profile=self.model.manager.get(pk=pk)
-        print(profile)
+    def get_profile(self):
+        user=self.request.user
+        if not user.is_authenticated: return None
+        profile = self.model.manager.get(user=user)
+        return profile
+
+    def get(self, request:HttpRequest, *args, **kwargs):
         return super().get(request)
+        
     
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        print(context, type(context))
-
-        # context[""] = 
+        context[self.context_object_name] = self.get_profile()
+        print(context)
         return context
     
         
