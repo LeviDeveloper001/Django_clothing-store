@@ -1,8 +1,12 @@
 {% extends "base/base.html" %}
+{% load static %}
 
 {% block content %}
 <h2>Profile</h2>
 <div class='profile-wrapper'>
+    {% with path_to_profile_image=profile.profile_image %}
+    <img class='profile-image' src='../../{{path_to_profile_image}}' width='100', height='100'>
+    {% endwith %}
     <p>Username: <span>{{ profile.user.username }}</span></p>
     <p>Эл. почта: <span>{{ profile.user.email }}</span></p>
     <span style='font-size:1.3em'>Описание: </span>

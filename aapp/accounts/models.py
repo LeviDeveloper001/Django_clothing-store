@@ -11,7 +11,7 @@ class ProfileManager(models.Manager):
 class Profile(models.Model):
     user=models.OneToOneField('User', on_delete=models.CASCADE)
     description=models.TextField(max_length=1000, null=True, editable=True)
-    profile_image=models.ImageField(upload_to='images/accounts/profile_images',null=True)
+    profile_image=models.ImageField(upload_to='static/images/accounts/profile_images/', null=True, editable=True)
     
     manager=ProfileManager()
 

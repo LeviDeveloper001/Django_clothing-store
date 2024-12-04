@@ -1,10 +1,12 @@
 from typing import Any
 
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from django.forms.forms import BaseForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect # resolve_url
 from django.http import HttpRequest, HttpResponse
 from django.views import View
-from django.views.generic import DetailView, FormView, TemplateView
+from django.views.generic import DetailView, FormView, TemplateView, RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, get_user_model, logout
 
@@ -15,8 +17,12 @@ from . import models
 
 User=get_user_model()
 
-def base_view(request):
+class BaseView(GeneralMixin, RedirectView):
+    url='accounts:login'
+
+def base_view(request:HttpRequest):
     return redirect('accounts:login')
+
 
 
 class CustomLoginView(GeneralMixin, LoginView):
@@ -96,23 +102,49 @@ class RegisterView(GeneralMixin, FormView):
 class ChangeProfileView(GeneralMixin, FormView):
     template_name='accounts/change_profile.html'
     form_class=forms.ChangeProfileForm
-    success_url='accounts:profile'
+    success_url='../'
+    model=models.Profile
+
 
 
     def get_success_url(self) -> str:
         return self.success_url
 
-    def form_valid(self, form:form_class):
+    def form_valid(self, form):
         # Сохраняем загруженное изображение в базе данных
-        user_image = form.save()  # Сохраняем объект UserImage
+        # user_image = form.save()  # Сохраняем объект UserImage
         return super().form_valid(form)
 
+    def get_form(self, form_class: type | None = ...) -> BaseForm:
+        if self.request.method=='POST':
+            return self.form_class(
+                self.request.POST,
+                self.request.FILES
+            )
+        return self.form_class()
+
     def post(self, request:HttpRequest, *args, **kwargs):
-        form=self.get_form()
+        form:forms.ChangeProfileForm=self.get_form()
+        post_data=request.POST
         files_data=request.FILES
-        print(files_data)
+        
+        
+        # print(files_data, len(files_data))
         if form.is_valid():
-            print('form-valid')
+            # new_profile_image:InMemoryUploadedFile=files_data['profile_image']
+            # user_profile:models.Profile=self.model.manager.get(user=request.user)
+            profile:models.Profile=self.model.manager.get(user=request.user)
+            print('\n\n\n\n\n',   profile.profile_image     ,'\n\n\n\n\n')
+            for field in form.Meta.fields:
+                if field in post_data:
+                    profile.__setattr__(field, post_data.get(field))
+                elif field in files_data:
+                    file:InMemoryUploadedFile=files_data.get(field)
+                    profile.__setattr__(field, file)
+                    profile.profile_image
+            profile.save()
+            return redirect(self.success_url)
+
         else:
             print('form not valid')
         
