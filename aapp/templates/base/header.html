@@ -42,16 +42,20 @@
         </div>
     </nav>
 
-    <div class='login-profile'>
-        {% if is_auth %}
-            <a href={% url "accounts:profile" %}>
-                <span>Профиль</span>
-            </a>
-        {% else %}
-            <a href={% url "accounts:login" %}>
-                <span>Войти</span>
-            </a>
-        {% endif %}
-    </div>
+    {% if is_auth %}
+        <a class='login-profile' href={% url "accounts:profile" %}>
+            {% if profile.profile_image %}
+                <img src='../../{{ profile.profile_image }}' width='40' height='40'>
+            {% endif %}
+            <span>Профиль</span>
+            
+                    
+        </a>
+    {% else %}
+        <a class='login-profile' href={% url "accounts:login" %}>
+            <span>Войти</span>
+        </a>  
+    </a>
+    {% endif %}
 
 </header>

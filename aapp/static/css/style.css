@@ -1,6 +1,6 @@
 :root {
-    --background-color: #477666;
-    --main-color: #9D9101;
+    --background-color: #004953;
+    --main-color: gray;
 }
 
 body {
@@ -57,19 +57,29 @@ header>nav>div>a>span {
 
 }
 
-header>.login-profile {
-    padding: 10px;
+header .login-profile {
+    /* padding: 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
     border-radius: 10px;
     margin-left: 100px;
 }
 
-header>.login-profile>a {
+header .login-profile {
+    padding: 5px;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     color: black;
 }
 
-header>.login-profile>a:hover {
+header>.login-profile:hover {
     color: white;
+    border-color: white;
 }
 
 .content-wrapper {
@@ -80,7 +90,7 @@ header>.login-profile>a:hover {
 aside {
     width: 150px;
     min-height: 1000px;
-    background-color: #9D9101;
+    background-color: var(--main-color);
 }
 
 
