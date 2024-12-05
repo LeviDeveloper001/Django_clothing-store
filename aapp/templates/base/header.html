@@ -8,8 +8,8 @@
     </nav>
     <nav>
         <div>
-            <a href="#">
-                <span>some</span>
+            <a href={% url "products:home" %}>
+                <span>Products</span>
             </a>
         </div>
     </nav>
@@ -43,7 +43,7 @@
     </nav>
 
     {% if is_auth %}
-        <a class='login-profile' href={% url "accounts:profile" %}>
+        <a class='login-profile' href={% url "users:profile" %}>
             {% if profile.profile_image %}
                 <img src='../../{{ profile.profile_image }}' width='40' height='40'>
             {% endif %}
@@ -52,7 +52,7 @@
                     
         </a>
     {% else %}
-        <a class='login-profile' href={% url "accounts:login" %}>
+        <a class='login-profile' href={% url "users:login" %}>
             <span>Войти</span>
         </a>  
     </a>

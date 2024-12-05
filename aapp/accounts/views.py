@@ -18,10 +18,10 @@ from . import models
 User=get_user_model()
 
 class BaseView(GeneralMixin, RedirectView):
-    url='accounts:login'
+    url='users:login'
 
 def base_view(request:HttpRequest):
-    return redirect('accounts:login')
+    return redirect('users:login')
 
 
 
@@ -38,7 +38,7 @@ class CustomLogoutView(GeneralMixin, LogoutView):
     http_method_names = ["get", "post", "options"]
     def get(self, request:HttpRequest):
         logout(request)
-        return redirect('accounts:login')
+        return redirect('users:login')
     # next_page='accounts:login'
     
 
@@ -55,7 +55,7 @@ class ProfileView(GeneralMixin, TemplateView):
         return profile
 
     def get(self, request:HttpRequest, *args, **kwargs):
-        if not request.user.is_authenticated: return redirect('accounts:login')
+        if not request.user.is_authenticated: return redirect('users:login')
         return super().get(request)
         
     
@@ -94,12 +94,12 @@ class RegisterView(GeneralMixin, FormView):
             user=User.manager.get(username=post_data.get('username'))
             profile = models.Profile.manager.create(user=user)
             profile.save()
-            return redirect('accounts:login')  # Перенаправление на страницу входа после успешной регистрации
+            return redirect('users:login')  # Перенаправление на страницу входа после успешной регистрации
         return self.render_to_response({'form':form})
 
 
 
-class ChangeProfileView(GeneralMixin, FormView):
+class ChangeProfileView(GeneralMixin, FormView): 
     template_name='accounts/change_profile.html'
     form_class=forms.ChangeProfileForm
     success_url='../'

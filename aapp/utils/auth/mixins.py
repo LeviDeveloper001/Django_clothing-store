@@ -23,7 +23,7 @@ class ProfileMixin(AuthMixin):
         if self.request.user.is_authenticated:
             context['profile']=self.profile_model.manager.get(user=self.request.user)
         else:
-            context['profile']=None
+            context['profile']=None 
         return context
         
 

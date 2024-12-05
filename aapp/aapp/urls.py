@@ -19,9 +19,11 @@ from django.urls import path, include
 
 from accounts.urls import accounts_config
 from home.urls import home_config
+from products.urls import products_config
 
 urlpatterns = [ 
     path('', include(home_config, namespace='home')),
     path('admin/', admin.site.urls),
-    path('accounts/', include(accounts_config, namespace='accounts')),
+    path('accounts/', include(accounts_config, namespace='users')),
+    path('products/', include(products_config, namespace='products'), name='products'),
 ]
