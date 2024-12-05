@@ -165,3 +165,39 @@ form.change-profile-form textarea[name=description] {
     border: 3px solid var(--background-color);
     border-radius: 10px;
 }
+
+.product-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.product-list .product-item {
+    width: 200px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-list>a {
+    margin: 10px 25px;
+    color: black;
+    border: 1px solid var(--main-color);
+    border-radius: 10px;
+}
+
+.product-list>a:hover {
+    color: white;
+    border-color: white;
+}
+
+.product-list>a .product-item {
+    width: 200px;
+    height: 140px;
+    
+}
+

@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load dict_tags %}
+
+{% block content %}
+
+<h2>Product List</h2>
+<ul class='product-list'>
+    {% for product in product_list %}
+    <a href='#'>
+        <li class='product-item'>        
+            <span>{{ product.name }}</span>
+            <span>{{ product.price }} руб</span>
+            <img src='../{{ product_images|get:product.pk }}' width='50' height='50'>            
+        </li>    
+    </a>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
