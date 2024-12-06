@@ -169,14 +169,15 @@ form.change-profile-form textarea[name=description] {
 .product-list {
     list-style-type: none;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     text-align: center;
 }
 
 .product-list .product-item {
-    width: 200px;
+    width: 190;
     height: 140px;
     display: flex;
     flex-direction: column;
@@ -188,6 +189,7 @@ form.change-profile-form textarea[name=description] {
     color: black;
     border: 1px solid var(--main-color);
     border-radius: 10px;
+    display: inline-block;
 }
 
 .product-list>a:hover {
@@ -196,8 +198,7 @@ form.change-profile-form textarea[name=description] {
 }
 
 .product-list>a .product-item {
-    width: 200px;
+    width: 190px;
     height: 140px;
-    
 }
 

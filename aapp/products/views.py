@@ -70,6 +70,7 @@ class ProductListView(GeneralMixin, ListView):
     images_model=models.ProductImage
     model=models.Product
     context_object_name='product_list'
+    # items_in_row = 
 
     def get_images_queryset(self, context:dict):
         product_list=context.get('product_list')
