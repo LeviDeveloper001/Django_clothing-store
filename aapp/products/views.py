@@ -2,7 +2,7 @@ from typing import Any
 from django.forms.forms import BaseForm
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from utils.general.mixins import GeneralMixin
@@ -70,6 +70,7 @@ class ProductListView(GeneralMixin, ListView):
     images_model=models.ProductImage
     model=models.Product
     context_object_name='product_list'
+    paginate_by=40
     # items_in_row = 
 
     def get_images_queryset(self, context:dict):
@@ -88,5 +89,21 @@ class ProductListView(GeneralMixin, ListView):
         return context
     
 
+class ProductDetailView(GeneralMixin, DetailView):
+    template_name='products/product_detail.html'
+    model=models.Product
+    context_object_name='product'
+
+    def get_images_query_set(self, context:dict):
+        return models.ProductImage.objects.filter(
+            product=context['product']
+        )
+
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['product_images']=self.get_images_query_set(context)
+        print(context)
+        return context
+    
 
 

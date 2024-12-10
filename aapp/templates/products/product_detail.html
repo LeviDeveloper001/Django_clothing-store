@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+
+<h2>
+    Product Detail
+</h2>
+
+<div class='product-detail-wrapper'>
+    <h3 class='product-detail_name'>{{ product.name }}</h3>
+    <p class='product-detail_price'>
+        <span style='color:brown'>Цена: </span> {{ product.price }} руб
+    </p>
+    <h5>Описание:</h5>
+    <p id='product-detail_description'>{{ product.description }}</p>
+    <div class='product-detail_images-wrapper'>
+        {% for image in product_images|slice:":3" %}
+            <img class='product-detail_image' src="../../{{ image.image }}" width='150' height='150'>
+            
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}

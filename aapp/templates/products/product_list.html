@@ -6,15 +6,26 @@
 <h2>Product List</h2>
 <ul class='product-list'>
     {% for product in product_list %}
-    <a href='#'>
+    <a href={% url "products:detail" pk=product.pk %}>
         <li class='product-item'>        
             <span>{{ product.name }}</span>
             <span>{{ product.price }} руб</span>
-            <img src='../{{ product_images|get:product.pk }}' width='50' height='50'>            
+            <img src='../../{{ product_images|get:product.pk }}' width='100' height='100'>            
         </li>    
     </a>
     {% endfor %}
 </ul>
+<div class='product-list-pagination'>
+    <div class='step-links'>
+        {% if page_obj.has_previous %}
+            <a href={% url "products:product_list" page=page_obj.previous_page_number %}>&lt;</a>
+        {% endif %}
+        <div class='circle'></div>
+        {% if page_obj.has_next %}
+            <a href={% url "products:product_list" page=page_obj.next_page_number %}>&gt;</a>
+        {% endif %}
+    </div>
+</div>
 
 
 <!-- <ul>
