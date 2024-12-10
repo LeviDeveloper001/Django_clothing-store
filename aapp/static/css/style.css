@@ -18,13 +18,24 @@ h1 {
     color:red;
 }
 
+a.default-a {
+    color: var(--a-color);
+    text-decoration: var(--a-decoration);
+}
+
+a.default-a:hover {
+    color: var(--a-hover-color);
+}
+
 
 header {
-    width: 100%;
+    /* width: 100%; */
+    padding: 0px 100px;
     height: 10vh;
     background-color: var(--main-color);
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -33,11 +44,13 @@ header>nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    justify-self: left;
+    min-width: 700px;
 }
 
 header>nav>div {
     text-align: center;
-    width: 65px;
+    /* min-width: 100px; */
     padding: 10px;
     border-radius: 10px;
     /* background-color: beige; */
@@ -66,7 +79,7 @@ header .login-profile {
     align-items: center;
     border: 1px solid black;
     border-radius: 10px;
-    margin-left: 100px;
+    /* margin-left: 100px; */
 }
 
 header .login-profile {
