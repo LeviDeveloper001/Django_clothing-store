@@ -106,8 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "accounts.User"
 
+LOGIN_URL='users:login'
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL='accounts/login/'
+LOGOUT_REDIRECT_URL=LOGIN_URL
 
 
 # Internationalization
@@ -129,6 +130,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     BASE_DIR/STATIC_URL,
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

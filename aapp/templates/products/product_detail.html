@@ -1,4 +1,4 @@
-{% extends "base/base.html" %}
+{% extends "products/general/base.html" %}
 
 {% block content %}
 
@@ -20,7 +20,16 @@
             
         {% endfor %}
     </div>
-
+    {% if is_auth %}
+    <form method='POST' id='product-detail_add-shopping-cart-form' class='shopping-cart-form product-detail_add-shopping-cart-form'>
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <button type="submit">Добавить в корзину</button>
+    </form>
+    {% else %}
+        <a href={% url "users:login" %} class='default-a'>Войти</a>
+    {% endif %}
 </div>
 
 {% endblock content %}

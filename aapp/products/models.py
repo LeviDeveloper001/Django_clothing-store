@@ -21,3 +21,31 @@ class ProductImage(models.Model):
 
 
 
+
+class ShoppingCartProduct(models.Model):
+    shopping_cart=models.ForeignKey('ShoppingCart', on_delete=models.CASCADE, blank=False)
+    product=models.ForeignKey(Product, on_delete=models.CASCADE, blank=False)
+
+    def get_price(self):
+        return self.product.price
+
+
+class ShoppingCartManager(models.Manager):
+    pass
+
+class ShoppingCart(models.Model):
+    buyer=models.OneToOneField('accounts.Profile', on_delete=models.CASCADE, blank=False)
+
+    objects=ShoppingCartManager()
+    manager=ShoppingCartManager()
+
+    def get_full_price(self):
+        shopping_cart_products=ShoppingCartProduct.objects.filter(
+            shopping_cart=self
+        )
+        full_price=0
+        for product in shopping_cart_products:
+            full_price+=product.get_price()
+        return full_price
+
+

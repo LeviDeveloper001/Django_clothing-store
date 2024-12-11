@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% load models_tags %}
+
+{% block content %}
+
+<h2>Shopping Cart</h2>
+<div class='content-wrapper shopping-cart-wrapper'>
+    <ul class='shopping-cart_product-list'>
+        {% for cart_product in products %}
+            <a class='shopping-cart_product-item-link default-a' href={% url "products:detail" pk=cart_product.product.pk %}>
+            <div class='shopping-cart_product-item'>
+                <h4 class='shopping-cart_product-item_name'>{{ cart_product.product.name }}</h4>
+                <p class='shopping-cart_product-item_price'>{{ cart_product.product.price }} руб</p>
+                <img src="{{ cart_product.product|get_product_image }}" width='100' height='100'>
+                
+            </div>
+        </a>
+        <button type='submit' style='height:50px'>-</button>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock content %}
+

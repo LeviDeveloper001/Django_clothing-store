@@ -11,10 +11,18 @@
     {% include "base/header.html" %}
     <div class="content-wrapper">
     {% include "base/left-aside.html" %}
+
     <main>
     {% block content %}content{% endblock content %}
     </main>
+
+    <aside class="right-aside" id="right-aside">
+    {% block right_aside %}
+    
     {% include "base/right-aside.html" %}
+    
+    {% endblock right_aside %}
+    </aside>
 
     </div>
 </body>

@@ -1,6 +1,8 @@
 from typing import Any
 
+from django.shortcuts import redirect
 from django.views.generic.base import ContextMixin
+from django.views.generic import View
 from django.http import HttpRequest
 
 from accounts.models import Profile
@@ -21,10 +23,19 @@ class ProfileMixin(AuthMixin):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['profile']=self.profile_model.manager.get(user=self.request.user)
+            profile=self.profile_model.manager.get(user=self.request.user)
         else:
-            context['profile']=None 
+            profile=None 
+        context['profile']=profile
+        self.profile=profile
         return context
+    
+    def get_profile(self) -> Profile:
+        if self.request.user.is_authenticated:
+            return self.profile or Profile.manager.get(user=self.request.user)
         
+        
+
+
 
 

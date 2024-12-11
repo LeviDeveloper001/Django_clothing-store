@@ -1,5 +1,6 @@
-{% extends "base/base.html" %}
+{% extends "products/general/base.html" %}
 {% load dict_tags %}
+{% load models_tags %}
 
 {% block content %}
 
@@ -10,7 +11,7 @@
         <li class='product-item'>        
             <span>{{ product.name }}</span>
             <span>{{ product.price }} руб</span>
-            <img src='../../{{ product_images|get:product.pk }}' width='100' height='100'>            
+            <img src='{{ product|get_product_image }}' width='100' height='100'>            
         </li>    
     </a>
     {% endfor %}
